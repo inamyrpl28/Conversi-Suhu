@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bootstrap Modal</title>
+        <!-- Load bootstrap css -->
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <!-- LOad jquery and bootstrap js -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/popper.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+    </head>
+    <style>
+        .form-control{
+          width: 100%;
+        }
+      </style>
+      <script type="text/javascript">
+      function convertSuhu(){
+    var temp = Number(document.getElementById('temperature').value)
+    var from = document.getElementById('from').value
+    var to = document.getElementById('to').value
+    var hasil
+
+    if (from == 'celcius') {
+        if (to == 'celcius') {
+            hasil = temp
+        } else if (to == 'fahrenheit') {
+            hasil = (temp * 1.8) + 32
+        } else if (to == 'kelvin') {
+            hasil = temp + 273.15
+        }
+    } else if (from == 'fahrenheit') {
+        if (to == 'celcius') {
+            hasil = (temp - 32) / 1.8
+        } else if (to == 'fahrenheit') {
+            hasil = temp
+        } else if (to == 'kelvin') {
+            hasil = (temp + 459.67) / 1.8
+        }
+    } else if (from == 'kelvin') {
+        if (to == 'celcius') {
+            hasil = temp - 273.15 
+        } else if (to == 'fahrenheit') {
+            hasil = temp * 1.8 - 459.67 
+        } else if (to == 'kelvin') {
+            hasil = temp
+        }
+    }
+
+    document.getElementById('resultLabel').removeAttribute('hidden')
+    document.getElementById('result').removeAttribute('hidden')
+    document.getElementById('result').value = hasil
+}
+</script>
+<body>
+    <div class="container-fluid">
+        <div class="rounded bg-light m-5 p-5 position-fixed">
+            <h3 class="text-center">
+                Konversi Suhu
+            </h3>
+            
+            <hr>
+
+            <form>
+                <div class="form-group">
+                    <label for="from">Konversi dari :</label>
+                    <select class="form-control" name="from" id="from">
+                        <option value="celcius">Celcius</option>
+                        <option value="fahrenheit">Fahrenheit</option>
+                        <option value="kelvin">Kelvin</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="to">Konversi ke :</label>
+                    <select class="form-control" name="to" id="to">
+                        <option value="celcius">Celcius</option>
+                        <option value="fahrenheit">Fahrenheit</option>
+                        <option value="kelvin">Kelvin</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="temperature">Suhu :</label>
+                    <input type="number"
+                    class="form-control" name="temperature" id="temperature" placeholder="Masukkan Suhu">
+                </div>
+
+                <button type="button" class="btn btn-primary btn-block" onclick="convertSuhu()">Convert</button>
+                
+                <div class="form-group mt-3">
+                    <label for="result" id="resultLabel" hidden>Hasil konversi :</label>
+                    <input type="number"
+                        class="form-control" name="result" id="result" readonly hidden>
+                </div>                        
+            </form>
+        </div>
+    </div>
+</body>
+</html>
